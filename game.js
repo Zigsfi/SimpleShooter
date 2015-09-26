@@ -42,6 +42,13 @@ function update() {
         ship.x += 3;
     }
 
+    //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
+    game.physics.arcade.overlap(player, stars, kill_enemy, null, this);
+
 }
 
+function kill_enemy() {
+    // Removes the star from the screen
+    star.kill();
+}
 
