@@ -2,18 +2,31 @@
 var boundsX = 800, boundsY = 600;
 var game = new Phaser.Game(boundsX, boundsY, Phaser.AUTO, "game", {preload:preload, update:update, create:create});
 
+
+
 var ship;
 var wasd;
 function preload () {
     game.load.image('ship', 'ship.png');
     game.load.image('enemy', 'evil.png');
+    game.load.image('rock', 'Asteroid.png');
 }
 
 function create() {
-    ship = game.add.sprite(50, 50, 'ship');
+    enemies = game.add.group();
+    enemies.enableBody = true;
+    addEnemies(3, enemies);
 
-    ship.anchor.setTo(0.5, 0.5);
+    rocks = game.add.group();
+    addRocks(3, rocks);
+
+    ship(game.world.width/2, game.world.height/2);
+
     this.cursors = game.input.keyboard.createCursorKeys();
+
+//    enemies.forEach(function(enemy){
+//        enemy.update();
+//    }, this);
 
     wasd = {
         up: game.input.keyboard.addKey(Phaser.Keyboard.W),
@@ -24,24 +37,12 @@ function create() {
 }
 
 function update() {
-    var mX = game.input.mousePointer.x;
-    var mY = game.input.mousePointer.y;
-    /* look at the mouse */
-    ship.angle = Math.atan2(ship.position.x - mX, ship.position.y - mY)  * -57.2957795;
-
-    if (wasd.up.isDown) {
-        ship.y -= 3;
-    }
-    if (wasd.down.isDown) {
-        ship.y += 3;
-    }
-    if (wasd.left.isDown) {
-        ship.x -= 3;
-    }
-    if (wasd.right.isDown) {
-        ship.x += 3;
-    }
-
+    movePlayer(wasd);
+    game.physics.arcade.overlap(ship, enemies, enemyHit, null, this);
+    game.physics.arcade.overlap(ship, rocks, hitRock, null, this);
+    game.physics.arcade.collide(rocks, rocks);
+    game.physics.arcade.collide(rocks, enemies);
+    game.physics.arcade.collide(enemies, enemies);
 }
 
 
