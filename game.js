@@ -11,6 +11,7 @@ function preload () {
 
 function create() {
     ship = game.add.sprite(50, 50, 'ship');
+    enemy = game.add.sprite(50, 50, 'enemy');
 
     ship.anchor.setTo(0.5, 0.5);
     this.cursors = game.input.keyboard.createCursorKeys();
@@ -47,8 +48,8 @@ function update() {
 
 }
 
-function kill_enemy() {
+function kill_enemy(player, star) {
     // Removes the star from the screen
-    star.kill();
+    enemy.kill();
 }
 
