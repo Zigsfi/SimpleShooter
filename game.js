@@ -11,7 +11,7 @@ function preload () {
 
 function create() {
     ship = game.add.sprite(50, 50, 'ship');
-    enemy = game.add.sprite(50, 50, 'enemy');
+    //enemy = game.add.sprite(50, 50, 'enemy');
 
     ship.anchor.setTo(0.5, 0.5);
     this.cursors = game.input.keyboard.createCursorKeys();
@@ -22,6 +22,15 @@ function create() {
         left: game.input.keyboard.addKey(Phaser.Keyboard.A),
         right: game.input.keyboard.addKey(Phaser.Keyboard.D),
     };
+
+    game.physics.enable(Phaser.Physics.ARCADE);
+
+    enemies = game.add.group();
+    viewGroup = game.add.group();
+    //Add a number of enemies to the game
+    for (var i = 0; i < 1; i++) {
+        var enemy = Enemy(enemies, viewGroup, 200 + i, 200);
+    }
 }
 
 function update() {
@@ -43,13 +52,17 @@ function update() {
         ship.x += 3;
     }
 
-    //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
-    game.physics.arcade.overlap(player, stars, kill_enemy, null, this);
+    //  Checks to see if the player overlaps with any of the stars, if he does call the kill function
+    //game.physics.arcade.overlap(ship, enemy, kill_player, null, this);
 
+    enemies.forEach(function(group) {
+        group.forEach(function(group) {
+            game.physics.arcade.overlap(ship, group, collisionHandler, null, this);
+        });
+    });
 }
 
-function kill_enemy(player, star) {
-    // Removes the star from the screen
-    enemy.kill();
+function collisionHandler(player, collider) {
+    collider.collide();
 }
 
