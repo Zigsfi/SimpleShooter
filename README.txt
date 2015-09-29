@@ -8,11 +8,11 @@ The following changes have been made to SimpleShooter:
 
 	Enemy and player (ship) code have been refactored into their own files, thus cleaning up the directory.
 
-	A "Rock" group has been added to the game.
+	A "Rock" group has been added to the game. This has been accomplished by creating a new rock object, similar to the enemy object.
 
-	Collisions are fully functional in the following ways:
+	Collision handling was accomplished using the game's update loop, checking periodically for overlaps between objects. Collisions are fully functional in the following ways:
 
-		The player is detroyed on collision with any enemy.
+		The player is detroyed on collision with any enemy. 
 
 		Rocks are destroyed on collision with the player.
 
