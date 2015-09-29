@@ -8,6 +8,7 @@ function Enemy(group, viewGroup, x, y) {
 	enemy.anchor.setTo(0.5,0.5);
 	group.add(enemyGroup);
 	game.physics.enable(enemy, Phaser.Physics.ARCADE);
+	
 	enemy.collide = function() {
 		enemyGroup.destroy();
 	};

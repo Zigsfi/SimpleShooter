@@ -4,9 +4,12 @@ var game = new Phaser.Game(boundsX, boundsY, Phaser.AUTO, "game", {preload:prelo
 
 var ship;
 var wasd;
+var enemies;
+var rocks;
 function preload () {
     game.load.image('ship', 'ship.png');
     game.load.image('enemy', 'evil.png');
+    game.load.image('rock', 'rock.png')
 }
 
 function create() {
@@ -25,11 +28,20 @@ function create() {
 
     game.physics.enable(Phaser.Physics.ARCADE);
 
+    //Enemies
     enemies = game.add.group();
     viewGroup = game.add.group();
     //Add a number of enemies to the game
-    for (var i = 0; i < 1; i++) {
-        var enemy = Enemy(enemies, viewGroup, 200 + i, 200);
+    for (var i = 0; i < 3; i++) {
+        var enemy = Enemy(enemies, viewGroup, 200 + i*8, 200);
+    }
+
+    //Rocks
+    rocks = game.add.group();
+    viewGroup = game.add.group();
+    //Add a number of enemies to the game
+    for (var i = 0; i < 3; i++) {
+        var rocks = Rock(rocks, viewGroup, 250 + i*10, 250 + i*3);
     }
 }
 
