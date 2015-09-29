@@ -2,19 +2,19 @@
 var boundsX = 800, boundsY = 600;
 var game = new Phaser.Game(boundsX, boundsY, Phaser.AUTO, "game", {preload:preload, update:update, create:create});
 
-var ship;
+var player;
 var wasd;
 function preload () {
-    game.load.image('ship', 'ship.png');
+    game.load.image('player', 'player.png');
     game.load.image('enemy', 'evil.png');
 }
 
 function create() {
-    //ship = game.add.sprite(50, 50, 'ship');
-    Player(game, 50, 50);
+    //player = game.add.sprite(50, 50, 'player');
+    player = new Player(game, 50, 50);
 
-    // ship.anchor.setTo(0.5, 0.5);
-    
+    // player.anchor.setTo(0.5, 0.5);
+
     this.cursors = game.input.keyboard.createCursorKeys();
 
     wasd = {
@@ -29,19 +29,19 @@ function update() {
     var mX = game.input.mousePointer.x;
     var mY = game.input.mousePointer.y;
     /* look at the mouse */
-    ship.angle = Math.atan2(ship.position.x - mX, ship.position.y - mY)  * -57.2957795;
+    player.angle = Math.atan2(player.position.x - mX, player.position.y - mY)  * -57.2957795;
 
     if (wasd.up.isDown) {
-        ship.y -= 3;
+        player.y -= 3;
     }
     if (wasd.down.isDown) {
-        ship.y += 3;
+        player.y += 3;
     }
     if (wasd.left.isDown) {
-        ship.x -= 3;
+        player.x -= 3;
     }
     if (wasd.right.isDown) {
-        ship.x += 3;
+        player.x += 3;
     }
 
 }
