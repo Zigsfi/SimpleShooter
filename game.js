@@ -3,6 +3,7 @@ var boundsX = 800, boundsY = 600;
 var game = new Phaser.Game(boundsX, boundsY, Phaser.AUTO, "game", {preload:preload, update:update, create:create});
 
 var player;
+var enemy;
 // var wasd;
 function preload () {
     game.load.image('ship', 'ship.png');
@@ -11,6 +12,7 @@ function preload () {
 
 function create() {
     player = new Player(game, 50, 50);
+    enemy = new Enemy(game, 200,200);
 }
 
 function update() {
