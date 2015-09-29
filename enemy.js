@@ -1,5 +1,4 @@
 function Enemy(group, x, y) {
-	//var enemyGroup = game.add.group();
 	//Set group position
 	var enemy = group.create(0, 0, 'enemy');
 	enemy.position.x = x;
@@ -10,7 +9,6 @@ function Enemy(group, x, y) {
 	game.physics.enable(enemy, Phaser.Physics.ARCADE);
 	
 	enemy.collide = function() {
-			console.log("destroy");
 			this.destroy();
 	};
 }
