@@ -5,7 +5,7 @@ var game = new Phaser.Game(boundsX, boundsY, Phaser.AUTO, "game", {preload:prelo
 var player;
 var wasd;
 function preload () {
-    game.load.image('player', 'player.png');
+    game.load.image('ship', 'ship.png');
     game.load.image('enemy', 'evil.png');
 }
 
