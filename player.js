@@ -14,7 +14,7 @@ function Player(game, x, y) {
 	game.add.existing(this);
 }
 
-Player.prototype.update(function() {
+Player.prototype.update = function() {
 	// Fill me in!
 	var mX = game.input.mousePointer.x;
     var mY = game.input.mousePointer.y;
