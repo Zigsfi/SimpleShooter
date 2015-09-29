@@ -26,23 +26,6 @@ function create() {
 }
 
 function update() {
-    var mX = game.input.mousePointer.x;
-    var mY = game.input.mousePointer.y;
-    /* look at the mouse */
-    player.angle = Math.atan2(player.position.x - mX, player.position.y - mY)  * -57.2957795;
-
-    if (wasd.up.isDown) {
-        player.y -= 3;
-    }
-    if (wasd.down.isDown) {
-        player.y += 3;
-    }
-    if (wasd.left.isDown) {
-        player.x -= 3;
-    }
-    if (wasd.right.isDown) {
-        player.x += 3;
-    }
 
 }
 
