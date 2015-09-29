@@ -14,6 +14,7 @@ function preload () {
 
 function create() {
     ship = game.add.sprite(50, 50, 'ship');
+    game.physics.enable(ship);
     //enemy = game.add.sprite(50, 50, 'enemy');
 
     ship.anchor.setTo(0.5, 0.5);
@@ -30,18 +31,18 @@ function create() {
 
     //Enemies
     enemies = game.add.group();
-    viewGroup = game.add.group();
+    //viewGroup = game.add.group();
     //Add a number of enemies to the game
     for (var i = 0; i < 3; i++) {
-        var enemy = Enemy(enemies, viewGroup, 200 + i*8, 200);
+        var enemy = Enemy(enemies, 200 + i*8, 200);
     }
 
     //Rocks
     rocks = game.add.group();
-    viewGroup = game.add.group();
+    //viewGroup = game.add.group();
     //Add a number of enemies to the game
     for (var i = 0; i < 3; i++) {
-        var rocks = Rock(rocks, viewGroup, 250 + i*10, 250 + i*3);
+        var rock = Rock(rocks, 250 + i*10, 250 + i*3);
     }
 }
 
@@ -64,17 +65,29 @@ function update() {
         ship.x += 3;
     }
 
-    //  Checks to see if the player overlaps with any of the stars, if he does call the kill function
-    //game.physics.arcade.overlap(ship, enemy, kill_player, null, this);
+    enemies.forEach(function(enemy) {
+        game.physics.arcade.overlap(ship, enemy, cH, null, this);
+    });
 
+    rocks.forEach(function(rock) {
+        game.physics.arcade.overlap(ship, rock, cH, null, this);
+    });
+
+    /*
     enemies.forEach(function(group) {
         group.forEach(function(group) {
-            game.physics.arcade.overlap(ship, group, collisionHandler, null, this);
+            
         });
     });
+
+    rocks.forEach(function(group) {
+        group.forEach(function(group) {
+            game.physics.arcade.overlap(ship, group, cH(ship, group), null, this);
+        });
+    });*/
 }
 
-function collisionHandler(player, collider) {
+function cH(player, collider) {
     collider.collide();
 }
 
