@@ -10,9 +10,11 @@ function preload () {
 }
 
 function create() {
-    ship = game.add.sprite(50, 50, 'ship');
+    //ship = game.add.sprite(50, 50, 'ship');
+    Player(game, 50, 50);
 
-    ship.anchor.setTo(0.5, 0.5);
+    // ship.anchor.setTo(0.5, 0.5);
+    
     this.cursors = game.input.keyboard.createCursorKeys();
 
     wasd = {
