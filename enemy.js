@@ -24,4 +24,5 @@ Enemy.prototype.update = function() {
 	var mX = player.x;
 	var mY = player.y;
 	this.angle = Math.atan2(this.position.x - mX, this.position.y - mY)  * -57.2957795;
+	game.physics.arcade.moveToObject(this, player, 60, 500);
 }
