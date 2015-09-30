@@ -9,17 +9,19 @@ function Enemy(game, x, y) {
 	this.anchor.setTo(0.5, 0.5);
 	this.scale.set(0.25, 0.25);
 	game.physics.enable(this, Phaser.Physics.ARCADE);
-	this.collide = function() {
-		this.destroy();
-	}
 	this.body.allowRotation = true;
+	// this.collide = function() {
+	// 	this.destroy();
+	// };
 	game.add.existing(this);
 }
 
-function collisionHandler(player, collider) {
-	collider.collide();
-}
+// function collisionHandler(player, collider) {
+// 	collider.collide();
+// }
 
 Enemy.prototype.update = function() {
-	game.physics.arcade.overlap(player, this, collisionHandler, null, this)
+	var mX = player.x;
+	var mY = player.y;
+	this.angle = Math.atan2(this.position.x - mX, this.position.y - mY)  * -57.2957795;
 }

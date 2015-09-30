@@ -45,4 +45,5 @@ Player.prototype.update = function() {
     if (wasd.right.isDown) {
         this.x += 3;
     }
+
 }
