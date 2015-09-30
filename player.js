@@ -1,5 +1,3 @@
-// Player code goes here!
-
 Player.prototype = Object.create(Phaser.Sprite.prototype);
 
 Player.prototype.constructor = Player;
