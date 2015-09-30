@@ -18,8 +18,9 @@ function create() {
     enemy = new Enemy(game, 50, 50);
 
     rocks = game.add.group();
+    rocks.classType = Rock;
     for (var i = 0; i <5; i++) {
-        var rock = Rock(game, rocks, i * 100, 300);
+        rocks.create(i * 100, 100);
     }
     // rocks = new Rock(game, 300, 300);
 }
