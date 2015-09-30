@@ -18,10 +18,15 @@ function create() {
     enemy = new Enemy(game, 50, 50);
 
     rocks = game.add.group();
+    rocks.enableBody = true;
+    game.physics.enable(rocks, Phaser.Physics.ARCADE);
     rocks.classType = Rock;
     for (var i = 0; i <5; i++) {
-        rocks.create(i * 100, 100);
+        rocks.create(i * 100, 100, exists = true);
     }
+    rocks.collide = function() {
+        this.kill();
+    };
     // rocks = new Rock(game, 300, 300);
 }
 

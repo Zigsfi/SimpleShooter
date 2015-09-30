@@ -8,16 +8,10 @@ function Rock(game, x, y) {
 	Phaser.Sprite.call(this, game, x, y, 'rock');
 	this.anchor.setTo(0.5, 0.5);
 	this.scale.set(1.5, 1.5);
-
 	game.physics.enable(this, Phaser.Physics.ARCADE);
-	this.collide = function() {
-        this.kill();
-    };
-
 	game.add.existing(this);
 }
 
 
 Rock.prototype.update = function() {
-
 } 
