@@ -13,7 +13,9 @@ function Player(game, x, y) {
 	this.anchor.setTo(0.5, 0.5);
 	game.physics.enable(this, Phaser.Physics.ARCADE);
 	this.body.allowRotation = true;
-
+    this.collide = function() {
+        this.kill();
+    };
 	var cursors = game.input.keyboard.createCursorKeys();
 
     wasd = {

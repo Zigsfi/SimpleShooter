@@ -10,19 +10,13 @@ function Enemy(game, x, y) {
 	this.scale.set(0.25, 0.25);
 	game.physics.enable(this, Phaser.Physics.ARCADE);
 	this.body.allowRotation = true;
-	// this.collide = function() {
-	// 	this.destroy();
-	// };
 	game.add.existing(this);
 }
 
-// function collisionHandler(player, collider) {
-// 	collider.collide();
-// }
 
 Enemy.prototype.update = function() {
 	var mX = player.x;
 	var mY = player.y;
 	this.angle = Math.atan2(this.position.x - mX, this.position.y - mY)  * -57.2957795;
-	game.physics.arcade.moveToObject(this, player, 60, 500);
+	game.physics.arcade.moveToObject(this, player, 60);
 }

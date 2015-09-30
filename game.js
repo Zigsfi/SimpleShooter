@@ -11,16 +11,14 @@ function preload () {
 }
 
 function create() {
-    player = new Player(game, 50, 50);
-    enemy = new Enemy(game, 200,200);
+    player = new Player(game, 500, 500);
+    enemy = new Enemy(game, 50, 50);
+}
+
+function collisionHandler(player, collider) {
+    player.collide();
 }
 
 function update() {
-
+    game.physics.arcade.overlap(player, enemy, collisionHandler, null, this);
 }
-
-// function render() {
-//     game.debug.body(player);
-// }
-
-
