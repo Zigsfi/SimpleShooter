@@ -15,8 +15,15 @@ function Enemy(game, x, y) {
 
 
 Enemy.prototype.update = function() {
-	var mX = player.x;
-	var mY = player.y;
-	this.angle = Math.atan2(this.position.x - mX, this.position.y - mY)  * -57.2957795;
-	game.physics.arcade.moveToObject(this, player, 60);
+
+	if (player.alive) {
+		var mX = player.x;
+		var mY = player.y;
+		this.angle = Math.atan2(this.position.x - mX, this.position.y - mY)  * -57.2957795;
+		game.physics.arcade.moveToObject(this, player, 60);
+	} else {
+		var stopX = this.x;
+		var stopY = this.y;
+		this.reset(stopX, stopY);
+	}
 }
