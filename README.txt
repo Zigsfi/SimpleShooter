@@ -1,0 +1,6 @@
+- I created the files ship.js and enemy.js. I based the structure of these files off the ship.js function in the example repository posted on Piazza. I linked to all new javascript files in index.html
+- I took all of the code for the ship out of the create and update functions in game.js and put them in the respective functions in ship.js. The game still creates a ship object and an enemy object in create(), but now it refers to the constructor function to do that.
+- I wrote new code for enemy.js based on what I wanted the enemy to do (namely, follow the ship).
+- I used the built in phaser functions kill() and overlap() to kill the ship on impact with the enemy.
+- I also created a new file rock.js to define behavior for rocks. I downloaded an image of a rock from the internet (but it wasn't a rock...) and added it to the list of images to preload.
+- I call the rock constructor object in update once every thirty frames, using a randomly generated starting position to make it feel like the rocks are falling in a chaotic storm.
