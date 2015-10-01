@@ -6,7 +6,7 @@ Player.prototype.force = {x:0.0, y:0.0};
 
 function Player(game, x, y) {
     Phaser.Sprite.call(this, game, x, y, 'ship');
-//    this.scale.set(0.05, 0.05);
+    this.scale.set(0.5, 0.5);
     this.anchor.setTo(0.5, 0.5);
     game.physics.enable(this, Phaser.Physics.ARCADE);
     this.body.allowRotation = false; 

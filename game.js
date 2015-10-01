@@ -28,6 +28,8 @@ function create() {
 ////???
     game.physics.enable(Phaser.Physics.ARCADE);
     ship = new Player(game, game.world.centerX, game.world.centerY);
+    ship.body.collideWorldBounds = true;
+
 
  //   ship.anchor.setTo(0.5, 0.5);
     this.cursors = game.input.keyboard.createCursorKeys();
@@ -44,8 +46,8 @@ function create() {
 ///???
     enemies = game.add.group();
     viewGroup = game.add.group();
-    for (var i = 0; i < 10; i ++) {
-        var enemy = Enemy(enemies, 200 + i * 70, 200); 
+    for (var i = 0; i < 3; i ++) {
+        var enemy = Enemy(enemies, 300 + i * 70, 100); 
     }
 
     rocks = game.add.group();
@@ -59,12 +61,16 @@ function create() {
 
 function update() {
     enemies.forEach(function(enemy) {
+        this.moveToObject(enemy, ship, 30);
         enemy.angle++;
-    });
+    }, game.physics.arcade);
 
     rocks.forEach(function(rock) {
         rock.angle += 0.3;
     });
+
+    //enemies.forEach(game.physics.arcade.moveToObject(enemy, ship), game.physics.arcade);
+
 
     game.physics.arcade.overlap(ship, enemies, enemyCollision, null, this);
     game.physics.arcade.overlap(ship, rocks, collisionHandler, null, this);
