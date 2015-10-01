@@ -1,13 +1,25 @@
-function Enemy(group, x, y) {
+Enemy.prototype = Object.create(Phaser.Sprite.prototype);
+
+Enemy.prototype.constructor = Enemy;
+
+Enemy.prototype.force = {x:0.0, y:0.0};
+
+
+
+function Enemy(group, player, x, y) {
+
     var enemy = group.create(0, 0, 'enemy');
+
     enemy.position.x = x;
     enemy.position.y = y;
+
     enemy.scale.setTo(0.08, 0.08);
     enemy.anchor.setTo(0.5, 0.5);
 
     game.physics.enable(enemy, Phaser.Physics.ARCADE);
-    enemy.collide = function() {
-        this.destroy();
+
+    enemy.update = function() {
+        game.physics.arcade.moveToObject(this, player, 30);
+        this.angle++;
     };
 }
-
