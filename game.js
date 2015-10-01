@@ -21,11 +21,13 @@ function create() {
     ship = new Ship(game, 50, 50);
 
     enemies = game.add.group();
+    // Adds numEnemies to random locations within margin in world
     for (var i = 0; i < numEnemies; i++) {
         enemies.add(new Enemy(game, getRandomX(enemyMargin), getRandomY(enemyMargin)));
     }
 
     rocks = game.add.group();
+    // Adds numRocks to random locations within margin in world
     for (var i = 0; i < numRocks; i++) {
         rocks.add(new Rock(game, getRandomX(rockMargin), getRandomY(rockMargin)));
     }
