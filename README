@@ -1,0 +1,9 @@
+Took any code updating ship and put it in its own updatePlayer function in the actual player file. Same with the enemy
+
+Created separate rocks.js file containing initializeRock and updateRock
+
+Called overlap-based collision functions based on the collectStar() function from the phaser tutorial
+
+These collision functions are called in the overlap functions that should work with either sprites or groups, but don't seem to work with the kill() function even though I can find no indistinguishable difference with what I'm doing and what was in the phaser tutorial
+
+This is the best I could do.

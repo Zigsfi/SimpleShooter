@@ -1,4 +1,5 @@
 var ship;
+var wasd;
 
 function initializeShip(){
 	
@@ -14,6 +15,9 @@ function initializeShip(){
         right: game.input.keyboard.addKey(Phaser.Keyboard.D),
     };
 }
+
+
+
 
 function updateShip(){
 	var mX = game.input.mousePointer.x;
@@ -33,10 +37,12 @@ function updateShip(){
     if (wasd.right.isDown) {
         ship.x += 3;
     }
+
+    game.physics.arcade.overlap(ship, enemy, killPlayer, null, this);
 }
 
 // kill function
-function killPlayer(enemy, player){
+function killPlayer(ship, enemy){
 	// removes ship
 	ship.kill();
 }

@@ -1,21 +1,16 @@
-var rocks;
-rocks = game.add.group();
-//rocks.enableBody = true;
-
-for (var i = 0; i < 10; i++)
-    {
-        var rock = rocks.create(i * 70, 0, 'rock');
-    }
-
+var rock;
 function initializeRock(){
-	rock = game.add.sprite(100, 100, 'rock');
+	rock = game.add.sprite(150, 150, 'rock');
 
     rock.anchor.setTo(0.5, 0.5);
 }
 
+function updateRock(){
+	game.physics.arcade.overlap(rock, ship, killRock, null, this);
+}
+
 // kill function
-function killRock(ship, rock){
+function killRock(rock, ship){
 	// removes rock
 	rock.kill();
 }
-

@@ -1,3 +1,5 @@
+var enemy;
+
 function initializeEnemy(){
 	
 	enemy = game.add.sprite(200, 200, 'enemy');
