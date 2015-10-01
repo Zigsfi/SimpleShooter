@@ -1,6 +1,6 @@
 
 var boundsX = 800, boundsY = 600;
-var game = new Phaser.Game(boundsX, boundsY, Phaser.AUTO, "game", {preload:preload, update: update, create:create, collide2: collide2, collide1: collide1});
+var game = new Phaser.Game(boundsX, boundsY, Phaser.AUTO, "game", {preload:preload, update: update, create:create, collide2: collide2, collide1: collide1, collide2: collide2});
 
 //var ship;
 var wasd;
@@ -22,8 +22,16 @@ function create() {
     rocks.enableBody = true;
     viewGrouprocks = game.add.group();
     for (var i = 0; i < 10; i ++) {
-        var enemy = Enemy(enemies, 200 + i * 70, 200 + i * 5);
-        var rock = Rock(rocks, 350 - i * 70, 200 + i * 20);
+        var enemy;
+        var rock;
+        if (i%2 == 0){
+            rock = Rock(rocks, 100 + i * 50, 300 - i * 25)
+            enemy = Enemy(enemies, 200 + i * 70, 400 - i * 10);
+        }
+        else{
+            rock = Rock(rocks, 200 - i * 25, 300 + i * 50);
+            enemy = Enemy(enemies, 400 - i * 10, 00 + i * 70);
+        }
     }
 
     this.cursors = game.input.keyboard.createCursorKeys();
@@ -48,7 +56,19 @@ function update() {
 */
 
     enemies.forEach(function(enemy) {
-
+        if (ship.position.x > enemy.position.x){
+            enemy.position.x += .5;
+        }
+        if (ship.position.y > enemy.position.y){
+            enemy.position.y += .5;
+        }
+        if (ship.position.x < enemy.position.x){
+            enemy.position.x -= .5;
+        }
+        if (ship.position.y < enemy.position.y){
+            enemy.position.y -= .5;
+        }
+        
         enemy.angle++;
     });
     game.physics.arcade.collide(ship, rocks);
@@ -58,12 +78,10 @@ function update() {
 
 }
 function collide1 (x, y){
-    console.log("Whats happening")
     y.kill(true);
 
 }
 function collide2 (x, y){
-    console.log("Whats happening")
     x.kill(true);
 
 }
