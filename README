@@ -4,10 +4,14 @@ Samantha Welch
 
 This is the ReadMe for the SimpleShooter lab.
 
-This game features a ship sprite that avoids enemy sprites and rocks. If the ship collides with an enemy the ship dies, if the ship collides with a rock, the rock dies upon collision. 
+This game features a ship sprite that avoids enemy sprites and rocks.
+If the ship collides with an enemy the ship dies, if the ship collides 
+with a rock, the rock dies upon collision. 
 
 The ship, enemy, and rock each have their own files and are called in the
-game file. The ship updates within its own file while the enemies update in game.js. This was done to show that individual elements can be updated in both places. 
+game file. The ship updates within its own file while the enemies update 
+in game.js. This was done to show that individual elements can be updated
+in both places. 
 
 
 Collaboration:
