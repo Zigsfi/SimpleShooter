@@ -10,21 +10,30 @@ function preload () {
     // Add all images
     game.load.image('ship', 'ship.png');
     game.load.image('enemy', 'evil.png');
+    game.load.image('rock','rock.png');
 }
 
 function create() {
     // Enable physics
     game.physics.enable(Phaser.Physics.ARCADE);
-    
     // Add ship sprite to center of screen
     ship = new Ship(game, game.world.centerX, game.world.centerY);
-    // Create group for the enemy variables
+    // Create groups for the enemy and rock variables
     enemies = game.add.group();
+    rocks = game.add.group();
  
     // Add actual enemies to group
     for(var i = 0; i < 7; i++) {
         var e = new Enemy(game, 200 + i *70, 50);
         enemies.add(e);
+    }
+
+    // Place rocks around the screen
+    for(var i = 0; i < 8; i++) {
+        var xpos = Math.floor(Math.random()*game.width);
+        var ypos = Math.floor(Math.random()*game.height);
+        var r = new Rock(game,xpos,ypos);
+        rocks.add(r);
     }
     
     // controls
@@ -42,6 +51,7 @@ function update() {
     //ship and enemy updates automatically called here
     //check for collisions
     game.physics.arcade.overlap(ship, enemies, collisionEnemy, null, this);
+    game.physics.arcade.overlap(ship, rocks, collisionRock, null, this);
 }
 
 
@@ -49,11 +59,7 @@ function collisionEnemy(player, collider) {
     player.kill();
 }
 
-
-
-function render(){
-    game.debug.body(ship);
-
+function collisionRock(player, collider) {
+    collider.kill();
 }
-
 

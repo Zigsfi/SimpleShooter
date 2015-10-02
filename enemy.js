@@ -30,9 +30,4 @@ Enemy.prototype.update = function(){
 
     this.x = this.x + this.dx;
     this.y = this.y + this.dy;
-
-    // game.physics.enable(enemy, Phaser.Physics.ARCADE);
-    //     enemy.collide = function() {
-    //         enemyGroup.destroy();
-    //     };
 }
