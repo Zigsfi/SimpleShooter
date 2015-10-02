@@ -3,16 +3,41 @@ var boundsX = 800, boundsY = 600;
 var game = new Phaser.Game(boundsX, boundsY, Phaser.AUTO, "game", {preload:preload, update:update, create:create});
 
 var ship;
+var enemies;
 var wasd;
+
 function preload () {
+    // Add all images
     game.load.image('ship', 'ship.png');
     game.load.image('enemy', 'evil.png');
+    game.load.image('rock','rock.png');
 }
 
 function create() {
-    ship = game.add.sprite(50, 50, 'ship');
+    // Enable physics
+    game.physics.enable(Phaser.Physics.ARCADE);
+    // Add ship sprite to center of screen
+    ship = new Ship(game, game.world.centerX, game.world.centerY);
+    
+    // Create groups for the enemy and rock variables
+    enemies = game.add.group();
+    rocks = game.add.group();
+ 
+    // Add actual enemies to group
+    for(var i = 0; i < 7; i++) {
+        var e = new Enemy(game, 200 + i *70, 50);
+        enemies.add(e);
+    }
 
-    ship.anchor.setTo(0.5, 0.5);
+    // Place rocks around the screen
+    for(var i = 0; i < 8; i++) {
+        var xpos = Math.floor(Math.random()*game.width);
+        var ypos = Math.floor(Math.random()*game.height);
+        var r = new Rock(game,xpos,ypos);
+        rocks.add(r);
+    }
+    
+    // controls
     this.cursors = game.input.keyboard.createCursorKeys();
 
     wasd = {
@@ -24,24 +49,18 @@ function create() {
 }
 
 function update() {
-    var mX = game.input.mousePointer.x;
-    var mY = game.input.mousePointer.y;
-    /* look at the mouse */
-    ship.angle = Math.atan2(ship.position.x - mX, ship.position.y - mY)  * -57.2957795;
-
-    if (wasd.up.isDown) {
-        ship.y -= 3;
-    }
-    if (wasd.down.isDown) {
-        ship.y += 3;
-    }
-    if (wasd.left.isDown) {
-        ship.x -= 3;
-    }
-    if (wasd.right.isDown) {
-        ship.x += 3;
-    }
-
+    //ship and enemy updates automatically called here
+    //check for collisions
+    game.physics.arcade.overlap(ship, enemies, collisionEnemy, null, this);
+    game.physics.arcade.overlap(ship, rocks, collisionRock, null, this);
 }
 
+
+function collisionEnemy(player, collider) {
+    player.kill();
+}
+
+function collisionRock(player, collider) {
+    collider.kill();
+}
 
