@@ -3,7 +3,7 @@ var rocks = game.add.group();
 function newRock(game) {
 
 	for (var i = 0; i < 10; i++) {
-		var rock = game.add.sprite(150, 150, 'rock');
+		var rock = game.add.sprite(150, 150, 'rocks');
 		var randx = random() * 100;
 		while (randx > game.width) {
 			randx = random() * 100;
