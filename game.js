@@ -6,95 +6,86 @@ var game = new Phaser.Game(boundsX, boundsY, Phaser.AUTO, "game",
                     {preload:preload, update:update, create:create});
 
 var player;
-
-var enemy;
-
 var rocks;
+var rockGroup;
+
+var score = 0;
+var scoreText;
+var gameEnd;
 
 function preload () {
     game.load.image('space', 'Deep-Space.jpg');
     game.load.image('cat', 'spaceship.png');
     game.load.image('enemy', 'goomba.png');
-    game.load.image('rock', 'rock.png');
+    game.load.image('rock', 'pizza.png');
 }
 
 function create() {
 
-    // Arcade phyics
-    //game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.physics.enable(Phaser.Physics.ARCADE); // start physics
 
-    //  A spacey background
+    // spacey background
     game.add.tileSprite(0, 0, game.width, game.height, 'space');
+
+    //  The score
+    scoreText = game.add.text(16, 16, 'score: ' + score, 
+                        { fontSize: '32px', fill: '#ffffff' });
 
     // add player
     player = new Player(game, game.world.centerX, game.world.centerY); 
-    player = game.add.sprite(100, 100, 'cat');
-
-    enemies = game.add.group();
-
-    rocks = game.add.group();
     
     // Make enemies (goombas)
-    for (var i = 0; i < 6; i++) {
-        enemy = new Enemy(enemies, game.world.randomX, game.world.randomY);
-    }
+    enemy1 = new Enemy(game, game.world.randomX, game.world.randomY);
+    enemy2 = new Enemy(game, game.world.randomX, game.world.randomY);
+    enemy3 = new Enemy(game, game.world.randomX, game.world.randomY);
+    enemy4 = new Enemy(game, game.world.randomX, game.world.randomY);
+    enemy5 = new Enemy(game, game.world.randomX, game.world.randomY);
+
+    // group for the rock objects
+    rockGroup = game.add.group();
 
     // Make 5 rocks
     for (var i = 0; i < 5; i++) {
-        rock = new Rock(rocks, game.world.randomX, game.world.randomY);
+        rock = rockGroup.create(game.world.randomX, game.world.randomY, 'rock');
+        rock.scale.setTo(0.1,0.1);
+        game.physics.enable(rock, Phaser.Physics.ARCADE);
     }
-
-    player.anchor.setTo(0.5, 0.5);
 
 }
 
-
-
-// Every time update() is called, update functions in objects
-// w/ update functions are automatically called.
 function update() {
 
-    // make enemies accelerate to ship
-    //enemies.forEachAlive(moveEnemies, this);
-/*
-    // handle collisions
-    // Checks to see if the player overlaps with any of the goombas, 
-    // player dies if he/she does
-    if (checkOverlap(enemies, player)) {
-        console.log("yerp");
-        // kill player
-        player.kill();
-    } else {
-        console.log("nerp");
-        // don't kill player
-        player.revive();
+    // collision detection (player and rock objects)
+    game.physics.arcade.overlap(player, rockGroup, killRock, null, this);
+
+    // checks if all rocks have been collected
+    if (score === 50) {
+        win();
     }
-*/
+}
 
-    game.physics.arcade.overlap(player, enemy, killPlayer, null, this);
-    game.physics.arcade.overlap(player, rock, killRock, null, this);
+// kills the rock and adds to your score
+function killRock(player, collider) {
+
+    collider.kill();
+
+    //  Add and update the score
+    score += 10;
+    scoreText.text = 'Score: ' + score;
 
 }
 
+// Lose situations
+function losing() {
 
-/*
-// moves objects toward an enemy
-// http://phaser.io/examples/v2/p2-physics/accelerate-to-object
-function moveEnemies (enemy) { 
-    accelerateToObject(enemy,player,2);  //start accelerateToObject on every enemy
+    //  You Lose!
+    gameEnd = game.add.text(300, 250, 'You Lose!', 
+                        { fontSize: '100px', fill: '#ffffff' });
 }
 
-// move toward object
-// Uses trigonometry to get objects to follow
-function accelerateToObject(obj1, obj2, speed) {
-    
-    if (typeof speed === 'undefined') { 
-        speed = 1; 
-    }
-
-    var angle = Math.atan2(obj2.y - obj1.y, obj2.x - obj1.x);
-    obj1.rotation = angle + game.math.degToRad(90);  // correct angle of angry enemies
-    obj1.x += Math.cos(angle) * speed;    // accelerate to object 
-    obj1.y += Math.sin(angle) * speed;
+// Win situations
+function win() {
+    //  You Win!
+    gameEnd = game.add.text(300, 250, 'You Win!', 
+                        { fontSize: '100px', fill: '#ffffff' });
 }
-*/

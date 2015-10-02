@@ -7,17 +7,20 @@ Player.prototype.force = {x:0.0, y:0.0};
 
 var wasd;
 
+// Arthur's sample code was instrumental in making
+// this function
 function Player(game, x, y) {
 
-    Phaser.Sprite.call(this, game, x, y, 'player');
-    this.scale.set(0.15, 0.15);
-    //this.anchor.setTo(0.2, 0.2);
+    Phaser.Sprite.call(this, game, x, y, 'cat');
+    this.scale.set(1, 1);
+    this.anchor.setTo(0.5, 0.5);
     game.physics.enable(this, Phaser.Physics.ARCADE);
     this.body.allowRotation = false;
     game.add.existing(this);
 
     this.cursors = game.input.keyboard.createCursorKeys();
 
+    // dictionary for game input
     wasd = {
         up: game.input.keyboard.addKey(Phaser.Keyboard.W),
         down: game.input.keyboard.addKey(Phaser.Keyboard.S),
@@ -29,12 +32,14 @@ function Player(game, x, y) {
 
 Player.prototype.update = function() {
 
-	// from Arthur's example code
+    // from Arthur's example code
     var mX = game.input.mousePointer.x;
     var mY = game.input.mousePointer.y;
+    
     // look at the mouse
     player.angle = Math.atan2(player.position.x - mX, player.position.y - mY)  * -57.2957795;
 
+    // move player sprite around
     if (wasd.up.isDown) {
         player.y -= 4;
     }
@@ -47,11 +52,5 @@ Player.prototype.update = function() {
     if (wasd.right.isDown) {
         player.x += 4;
     }
-
-}
-
-function killPlayer(player, enemy) {
-
-    kill.player();
 
 }
