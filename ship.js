@@ -10,9 +10,9 @@ function Ship(game, x, y){
     Ship.prototype.game = game;
 	this.scale.set(0.5, 0.5);
 	this.anchor.setTo(0.5,0.5);
+    this.body.allowRotation = false;
+    game.add.existing(this);
 	game.physics.enable(this, Phaser.Physics.ARCADE);
-	this.body.allowRotation = false;
-	game.add.existing(this);
 }
 
 Ship.prototype.update = function(){
@@ -36,8 +36,3 @@ Ship.prototype.update = function(){
 
     
 }
-
-// function collide(){
-//     console.log("in collide")
-//     this.destroy();
-// }

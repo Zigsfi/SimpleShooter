@@ -18,6 +18,7 @@ function create() {
     game.physics.enable(Phaser.Physics.ARCADE);
     // Add ship sprite to center of screen
     ship = new Ship(game, game.world.centerX, game.world.centerY);
+    
     // Create groups for the enemy and rock variables
     enemies = game.add.group();
     rocks = game.add.group();
