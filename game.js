@@ -1,47 +1,91 @@
+// game.js
+// SimpleShooter game file
 
-var boundsX = 800, boundsY = 600;
-var game = new Phaser.Game(boundsX, boundsY, Phaser.AUTO, "game", {preload:preload, update:update, create:create});
+var boundsX = 1000, boundsY = 600;
+var game = new Phaser.Game(boundsX, boundsY, Phaser.AUTO, "game",
+                    {preload:preload, update:update, create:create});
 
-var ship;
-var wasd;
+var player;
+var rocks;
+var rockGroup;
+
+var score = 0;
+var scoreText;
+var gameEnd;
+
 function preload () {
-    game.load.image('ship', 'ship.png');
-    game.load.image('enemy', 'evil.png');
+    game.load.image('space', 'Deep-Space.jpg');
+    game.load.image('cat', 'spaceship.png');
+    game.load.image('enemy', 'goomba.png');
+    game.load.image('rock', 'pizza.png');
 }
 
 function create() {
-    ship = game.add.sprite(50, 50, 'ship');
 
-    ship.anchor.setTo(0.5, 0.5);
-    this.cursors = game.input.keyboard.createCursorKeys();
+    game.physics.enable(Phaser.Physics.ARCADE); // start physics
 
-    wasd = {
-        up: game.input.keyboard.addKey(Phaser.Keyboard.W),
-        down: game.input.keyboard.addKey(Phaser.Keyboard.S),
-        left: game.input.keyboard.addKey(Phaser.Keyboard.A),
-        right: game.input.keyboard.addKey(Phaser.Keyboard.D),
-    };
+    // spacey background
+    game.add.tileSprite(0, 0, game.width, game.height, 'space');
+
+    //  The score
+    scoreText = game.add.text(16, 16, 'score: ' + score, 
+                        { fontSize: '32px', fill: '#ffffff' });
+
+    // add player
+    player = new Player(game, game.world.centerX, game.world.centerY); 
+    
+    // Make enemies (goombas)
+    enemy1 = new Enemy(game, game.world.randomX, game.world.randomY);
+    enemy2 = new Enemy(game, game.world.randomX, game.world.randomY);
+    enemy3 = new Enemy(game, game.world.randomX, game.world.randomY);
+    enemy4 = new Enemy(game, game.world.randomX, game.world.randomY);
+    enemy5 = new Enemy(game, game.world.randomX, game.world.randomY);
+
+    // group for the rock objects
+    rockGroup = game.add.group();
+
+    // Make 5 rocks
+    for (var i = 0; i < 5; i++) {
+        rock = rockGroup.create(game.world.randomX, game.world.randomY, 'rock');
+        rock.scale.setTo(0.1,0.1);
+        game.physics.enable(rock, Phaser.Physics.ARCADE);
+    }
+
 }
 
 function update() {
-    var mX = game.input.mousePointer.x;
-    var mY = game.input.mousePointer.y;
-    /* look at the mouse */
-    ship.angle = Math.atan2(ship.position.x - mX, ship.position.y - mY)  * -57.2957795;
 
-    if (wasd.up.isDown) {
-        ship.y -= 3;
+    // collision detection (player and rock objects)
+    game.physics.arcade.overlap(player, rockGroup, killRock, null, this);
+
+    // checks if all rocks have been collected
+    if (score === 50) {
+        win();
     }
-    if (wasd.down.isDown) {
-        ship.y += 3;
-    }
-    if (wasd.left.isDown) {
-        ship.x -= 3;
-    }
-    if (wasd.right.isDown) {
-        ship.x += 3;
-    }
+}
+
+// kills the rock and adds to your score
+function killRock(player, collider) {
+
+    collider.kill();
+
+    //  Add and update the score
+    score += 10;
+    scoreText.text = 'Score: ' + score;
 
 }
 
+// Lose situations
+function losing() {
 
+    //  You Lose!
+    gameEnd = game.add.text(300, 250, 'You Lose!', 
+                        { fontSize: '100px', fill: '#ffffff' });
+}
+
+// Win situations
+function win() {
+    //  You Win!
+    gameEnd = game.add.text(300, 250, 'You Win!', 
+                        { fontSize: '100px', fill: '#ffffff' });
+}
