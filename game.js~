@@ -17,7 +17,7 @@ function create() {
 }
 
 function update() {
-    //collision handler 
+    
     game.physics.arcade.overlap(rock, ship, rock_ship_collision, null, this);
     game.physics.arcade.overlap(ship, enemy, ship_enemy_collision, null, this); 
 
