@@ -7,6 +7,12 @@ Files:
 	player.js
 	enemy.js
 
+Images and Sprite:
+	pizza.png (from http://www.wolfcomms.com/)
+	spaceship.png (from https://cdn.scratch.mit.edu/)
+	goomba.png (from app.sketchclub.com)
+	Deep-Space.jpg (from www.wallpapersis.coms)
+
 
 Changes:
 
