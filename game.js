@@ -10,9 +10,9 @@ function preload () {
 }
 
 function create() {
-    newShip();
-    newEnemy();
-    newRock();
+    newShip(game);
+    newEnemy(game);
+    newRock(game);
 
 }
 
@@ -21,8 +21,8 @@ function update() {
     game.physics.arcade.overlap(rock, ship, rock_ship_collision, null, this);
     game.physics.arcade.overlap(ship, enemy, ship_enemy_collision, null, this); 
 
-    updateEnemy();
-    updateShip();
+    updateEnemy(game);
+    updateShip(game);
 
 }
 

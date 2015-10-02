@@ -1,7 +1,7 @@
 var ship
 var wasd
 
-function newShip(){
+function newShip(game){
 	game.add.sprite(50, 50, 'ship');
 
 	ship.anchor.setTo(0.5, 0.5);
@@ -16,7 +16,7 @@ function newShip(){
 	}
 
 }
-function updateShip() {
+function updateShip(game) {
 	var mX = game.input.mousePointer.x;
 	var mY = game.input.mousePointer.y;
 
@@ -37,6 +37,6 @@ function updateShip() {
 
 	}
 }
-function ship_enemy_collision() {
-	this.destroy();
+function ship_enemy_collision(ship, enemy) {
+	ship.kill();
 }

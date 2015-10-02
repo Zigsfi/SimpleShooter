@@ -1,6 +1,6 @@
 var rocks = game.add.group();
 
-function newRock() {
+function newRock(game) {
 	for (var i = 0; i < 10; i++) {
 		var rock = game.add.sprite(150, 150, 'rock');
 		var randx = random() * 100;
@@ -18,6 +18,6 @@ function newRock() {
 		rock = group.create(0, 0, 'rock');
 	}
 }
-function rock_ship_collision() {
+function rock_ship_collision(rock, ship) {
 		rock.kill();
 }
