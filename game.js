@@ -4,9 +4,11 @@ var game = new Phaser.Game(boundsX, boundsY, Phaser.AUTO, "game", {preload:prelo
 var ship;
 var wasd;
 var enemies;
+var rocks;
 function preload () {
     game.load.image('ship', 'ship.png');
     game.load.image('enemy', 'evil.png');
+    game.load.image('rock', 'rock.png');
 }
 
 function create() {
@@ -27,14 +29,24 @@ function create() {
         var en = new Enemy(game, 200 + i * 70, 400);
         enemies.add(en);
     }
+    rocks = game.add.group();
+    for (var j = 0; j < 7; j++) {
+        console.log('rocks');
+        var r = new Rock(game, 300, 100 + j * 70);
+        rocks.add(r);
+    }
 }
 
-function collisionHandler(player, collider) {
+function collisionEnemy(player, collider) {
     player.kill();
+}
+function collisionRock(player, collider) {
+    collider.kill();
 }
 function update() {
     /* look at the mouse */
-    game.physics.arcade.overlap(ship, enemies, collisionHandler, null, this);
+    game.physics.arcade.overlap(ship, enemies, collisionEnemy, null, this);
+    game.physics.arcade.overlap(ship, rocks, collisionRock, null, this);
 }
 
 

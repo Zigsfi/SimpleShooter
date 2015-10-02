@@ -11,9 +11,6 @@ function Enemy(game, x, y) {
     this.scale.setTo(0.1, 0.1);
     this.anchor.setTo(0.5, 0.5);
     game.add.existing(this);
-    this.collide = function() {
-        this.destroy();
-    };
     game.physics.enable(this, Phaser.Physics.ARCADE);
 }
 
