@@ -35,6 +35,10 @@ Problems:
 	  think this is what we were supposed to do, but it's
 	  the only thing I could get to work.
 
+	- Couldn't clear the "You Win!" text. If the enemies
+	  catch the player after they win the "You Lose!" text
+	  layers on top of the "You Win!" text.
+
 
 Acknowledgements:
 	Thanks to Arthur and Ming for all the sample code and help.
