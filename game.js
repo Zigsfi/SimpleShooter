@@ -2,45 +2,48 @@
 var boundsX = 800, boundsY = 600;
 var game = new Phaser.Game(boundsX, boundsY, Phaser.AUTO, "game", {preload:preload, update:update, create:create});
 
+
 var ship;
-var wasd;
+var enemies;
+var enemy;
+var rocks;
+var rock;
+
 function preload () {
     game.load.image('ship', 'ship.png');
     game.load.image('enemy', 'evil.png');
+    game.load.image('rock', 'rock.jpg');
 }
 
 function create() {
-    ship = game.add.sprite(50, 50, 'ship');
+    game.physics.enable(Phaser.Physics.ARCADE);
+    ship = new Ship(game, game.world.centerX, 520); 
+    enemies = game.add.group();
+    for (var i = 0; i < 10; i ++) {
+        enemy = new Enemy(game, 200 + i * 70, 200);
+        enemies.add(enemy); 
+    }
+    rocks = game.add.group();
+    for(var i=0; i<10; i++) {
+        rock = new Rock(game, 10 + Math.random()* 400, 10+Math.random()*400);
+        rocks.add(rock);
+    }
+    
+}
 
-    ship.anchor.setTo(0.5, 0.5);
-    this.cursors = game.input.keyboard.createCursorKeys();
+function collisionHandler1(player, collider) {
+    player.kill();
+    game.debug.text('GAME OVER', 32, 32);
+}
 
-    wasd = {
-        up: game.input.keyboard.addKey(Phaser.Keyboard.W),
-        down: game.input.keyboard.addKey(Phaser.Keyboard.S),
-        left: game.input.keyboard.addKey(Phaser.Keyboard.A),
-        right: game.input.keyboard.addKey(Phaser.Keyboard.D),
-    };
+function collisionHandler2(player, collider) {
+    collider.destroy();
 }
 
 function update() {
-    var mX = game.input.mousePointer.x;
-    var mY = game.input.mousePointer.y;
-    /* look at the mouse */
-    ship.angle = Math.atan2(ship.position.x - mX, ship.position.y - mY)  * -57.2957795;
 
-    if (wasd.up.isDown) {
-        ship.y -= 3;
-    }
-    if (wasd.down.isDown) {
-        ship.y += 3;
-    }
-    if (wasd.left.isDown) {
-        ship.x -= 3;
-    }
-    if (wasd.right.isDown) {
-        ship.x += 3;
-    }
+    game.physics.arcade.overlap(ship, enemies, collisionHandler1, null, this);
+    game.physics.arcade.overlap(ship, rocks, collisionHandler2, null, this);
 
 }
 
