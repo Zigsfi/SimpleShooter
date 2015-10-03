@@ -1,9 +1,13 @@
-Took any code updating ship and put it in its own updatePlayer function in the actual player file. Same with the enemy
+Create funciton initializes game physics and then calls initialization functions for the ship, the enemy, and the rocks
 
-Created separate rocks.js file containing initializeRock and updateRock
+Game's update function calls update functions of ship, enemy, and rocks
 
-Called overlap-based collision functions based on the collectStar() function from the phaser tutorial
+Took any code updating ship prototype and put it in its own file. Same with the enemy.
 
-These collision functions are called in the overlap functions that should work with either sprites or groups, but don't seem to work with the kill() function even though I can find no indistinguishable difference with what I'm doing and what was in the phaser tutorial
+Created separate rocks.js file containing initializeRock, updateRock, and killRock
 
-This is the best I could do.
+Called overlap collision functions based on the collectStar() function from the phaser tutorial.
+
+This is the best I could do working with the "prototype" deal which I am still unfamiliar with.
+
+I really hope I understand this lab one day.

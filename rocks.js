@@ -1,4 +1,5 @@
 var rock;
+
 function initializeRock(){
 	rock = game.add.sprite(150, 150, 'rock');
 
@@ -6,11 +7,11 @@ function initializeRock(){
 }
 
 function updateRock(){
-	game.physics.arcade.overlap(rock, ship, killRock, null, this);
+	game.physics.arcade.overlap(ship, rock, killRock, null, this);
 }
 
 // kill function
-function killRock(rock, ship){
+function killRock(ship, rock){
 	// removes rock
 	rock.kill();
 }
