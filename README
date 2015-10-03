@@ -1,0 +1,11 @@
+## README for COMP23 Lab 2             ##
+## Simple Shooter Refactorization      ##
+
+This is a simple refactorization of the simple shooter base code. I pulled out the player and enemy
+as seperate objects files with their own update functions. The player object update functions handles
+the user input and controls while the enemy update functions includes the simple AI of following the 
+player. 
+
+The rocks group is included in the game.js files and it randomly placed around the play area. ALl
+collision checks are done in game.js's update functions using .overlap funtions inside the arcade physics
+suite.
