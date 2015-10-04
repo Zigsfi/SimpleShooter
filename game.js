@@ -17,7 +17,6 @@ function create() {
 }
 
 function update() {
-    updateShip();
     updateEnemy();
     updateRock();
 }

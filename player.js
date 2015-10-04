@@ -9,10 +9,7 @@ Ship.prototype.force = {x:0.0, y:0.0};
 
 function initializeShip() {
     
-	/*
-	ship = game.add.sprite(50, 50, 'ship');
-
-    ship.anchor.setTo(0.5, 0.5);*/
+	ship = new Ship(game, game.world.centerX, game.world.centerY);
 
     this.cursors = game.input.keyboard.createCursorKeys();
 
@@ -26,7 +23,7 @@ function initializeShip() {
 
 
 
-
+// moves ship based on key input
 Ship.prototype.update = function() {
 	var mX = game.input.mousePointer.x;
     var mY = game.input.mousePointer.y;
@@ -46,15 +43,15 @@ Ship.prototype.update = function() {
         ship.x += 3;
     }
 
+    // detects collisions of ship and enemy
+    // kills player if there is a collision
     game.physics.arcade.overlap(ship, enemy, killPlayer, null, this);
 }
 
 
 // making the ship
-function Ship(){
-    ship = new Ship(game, game.world.centerX, game.world.centerY);
+function Ship(game, x, y){
     Phaser.Sprite.call(this, game, x, y, 'ship');
-    this.scale.set(0.05, 0.05);
     this.anchor.setTo(0.5, 0.5);
     game.physics.enable(this, Phaser.Physics.ARCADE);
     this.body.allowRotation = false;
